@@ -71,23 +71,23 @@
 }
 
 -(void)acertou{
-    [UIView animateWithDuration:0.01 animations:^{
+    [UIView animateWithDuration:0.00001 animations:^{
         _botaoAcertou.backgroundColor = [UIColor greenColor];
     }];
-    double delayInSeconds = 0.001;
+    double delayInSeconds = 0.000001;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self mudarCor];
+        [self resetarCor];
     });
 }
 -(void)pronto{
-    [UIView animateWithDuration:0.01 animations:^{
+    [UIView animateWithDuration:1.0 animations:^{
         _botaoAcertou.backgroundColor = [UIColor whiteColor];
     }];
-    double delayInSeconds = 0.001;
+    double delayInSeconds = 0.01;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self mudarCor];
+        [self resetarCor];
     });
 }
 
@@ -157,7 +157,7 @@
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [self mudarCor];
+        [self resetarCor];
         _botaoJogar.hidden = NO;
         [UIView animateWithDuration:0.4 animations:^{
             _botaoJogar.backgroundColor= [UIColor redColor];
@@ -165,8 +165,8 @@
     });
 }
 
-- (void) mudarCor{
-    [UIView animateWithDuration:0.9 animations:^{
+- (void) resetarCor{
+    [UIView animateWithDuration:1.0 animations:^{
     _botaoAmarelo.backgroundColor = [UIColor blackColor];
     _botaoAzul.backgroundColor = [UIColor blackColor];
     _botaoVerde.backgroundColor = [UIColor blackColor];
@@ -217,29 +217,31 @@
     
 }
 -(void) rodada{
-    int i = 0;
     
-    double delayInSeconds = 1.0;
+    int i = 0;
+    double delayInSeconds = 0.0;
     _clickAmarelo.enabled = NO;
     _clickVermelho.enabled = NO;
     _clickAzul.enabled = NO;
     _clickVerde.enabled = NO;
     _fieldNome.hidden =YES;
-    
     [self proxRodada];
+    jogada = numRodadas;
+    
     do{
+    
         
-        jogada = numRodadas;
-        
-        
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self mostraCor];
-            
-            [self mudarCor];
-        });
-        
-        delayInSeconds = delayInSeconds +1;
+        delayInSeconds = delayInSeconds + 0.8;
+        [NSTimer scheduledTimerWithTimeInterval:delayInSeconds
+                                         target:self
+                                       selector:@selector(mostraCor)
+                                       userInfo:nil
+                                        repeats:NO];
+        [NSTimer scheduledTimerWithTimeInterval:delayInSeconds
+                                         target:self
+                                       selector:@selector(resetarCor)
+                                       userInfo:nil
+                                        repeats:NO];
         
         i++;
         
@@ -251,7 +253,12 @@
         _clickVermelho.enabled = YES;
         _clickAzul.enabled = YES;
         _clickVerde.enabled = YES;
-        [self pronto];
+        [NSTimer scheduledTimerWithTimeInterval:0.6
+                                         target:self
+                                       selector:@selector(pronto)
+                                       userInfo:nil
+                                        repeats:NO];
+        
     });
     
 }

@@ -48,7 +48,7 @@
 - (IBAction)Jogar:(UIButton *)sender;
 - (void)proxRodada;
 -(void) mostraCor;
--(void) mudarCor;
+-(void) resetarCor;
 -(void) perdeu;
 -(void) acertou;
 -(void) rodada;
