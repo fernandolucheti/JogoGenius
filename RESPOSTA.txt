@@ -1,0 +1,5 @@
+Foi utilizada a estrutura de fila para o desenvolvimento do jogo Genius.
+
+Apenas uma fila foi criada e todos os dados das jogadas são desenfileirados e enfileirados nela mesma após a leitura e verificação da cor desejada. Esta operação é realizada N vezes, onde N equivale ao tamanho da fila
+
+Optamos pela fila pois assim é possível armazenar os dados na sequencia desejada, permitindo também comparar os acertos do usuário de maneira mis simples.
